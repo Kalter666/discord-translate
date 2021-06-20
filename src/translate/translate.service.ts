@@ -23,12 +23,12 @@ export class TranslateService {
     return axios.post(this.translateURI, query);
   }
 
-  private getSupportedLanguages(): Promise<
+  async getSupportedLanguages(): Promise<
     {
       code: 'string';
       name: 'string';
     }[]
   > {
-    return axios.get(this.supportedLanguagesURI);
+    return (await axios.get(this.supportedLanguagesURI)).data;
   }
 }
