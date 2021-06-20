@@ -2,7 +2,6 @@ import { NestFactory } from '@nestjs/core';
 import { json, urlencoded } from 'express';
 import * as helmet from 'helmet';
 import { WinstonModule } from 'nest-winston';
-
 import { AppModule } from './app.module';
 import { PORT, winstonConfig } from './config';
 
