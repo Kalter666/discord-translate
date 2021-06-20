@@ -1,6 +1,8 @@
 services:
   server:
-    build: 'dev.dockerfile'
+    build:
+      context: .
+      dockerfile: ./dev.dockerfile
     environment:
       - PORT=${PORT}
       - DISCORD_SECRET=${DISCORD_SECRET}
