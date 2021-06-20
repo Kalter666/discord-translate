@@ -11,16 +11,26 @@ export class TranslateService {
   private translateURI = `${this.baseURL}/translate`;
   private supportedLanguagesURI = `${this.baseURL}/languages`;
 
-  async translate(translateDto: TranslateDto): Promise<string> {
-    return '';
+  async guessAndtranslate(translateDto: TranslateDto): Promise<string> {
+    const locale = await this.detectLanguage(translateDto.q);
+    return locale;
   }
 
-  private detectLanguage(q: string): Promise<string> {
-    return axios.post(this.detectLangURI, { q });
+  async detectLanguage(q: string): Promise<string> {
+    return (
+      (await axios.post(this.detectLangURI, { q })).data as {
+        confidence: number;
+        language: string;
+      }[]
+    ).map(({ language }) => `${language}`)[0];
   }
 
-  private getTranslation(query: { q: string; source: string; target: string }) {
-    return axios.post(this.translateURI, query);
+  async getTranslation({ q, source, target }: TranslateDto): Promise<string> {
+    return (
+      (await axios.post(this.translateURI, { q, source, target })).data as {
+        translatedText: string;
+      }
+    ).translatedText;
   }
 
   async getSupportedLanguages(): Promise<

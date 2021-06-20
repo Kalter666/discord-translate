@@ -1,21 +1,25 @@
-import { Expose, Type } from 'class-transformer';
+import { Expose } from 'class-transformer';
 import { IsNotEmpty, IsString } from 'class-validator';
 import { ArgNum, ArgRange } from 'discord-nestjs';
 
 export class TranslateDto {
-  @ArgRange(() => ({ formPosition: 1, toPosition: 2 }))
+  @ArgRange(() => ({ formPosition: 3 }))
   @Expose()
   @IsString({ each: true })
-  @IsNotEmpty()
+  @IsNotEmpty({ each: true })
   private _string: string[];
 
-  @ArgNum((last: number) => ({ position: last }))
+  @ArgNum(() => ({ position: 1 }))
   @Expose()
-  @Type(() => String)
-  @IsString()
-  language: string;
+  @IsString({ message: 'Please define source of the language.' })
+  source: string;
 
-  get string(): string {
-    return this._string[0];
+  @ArgNum(() => ({ position: 2 }))
+  @Expose()
+  @IsString({ message: 'Please define target language.' })
+  target: string;
+
+  get q(): string {
+    return this._string.join(' ');
   }
 }

@@ -23,7 +23,7 @@ export class ChatCommandsController {
   }
 
   @OnCommand({ name: 'langs' })
-  async onCommand(message: Message): Promise<void> {
+  async onLanguageList(message: Message): Promise<void> {
     try {
       const supportedLangs =
         await this.translateService.getSupportedLanguages();
@@ -44,8 +44,21 @@ export class ChatCommandsController {
     @Content() content: TranslateDto,
     @Context() [context]: [Message],
   ): Promise<void> {
-    const translation = await this.translateService.translate(content);
-    await context.reply(`${translation}`);
+    try {
+      const translation = await this.translateService.getTranslation(content);
+      await context.reply(translation);
+    } catch (e) {
+      Logger.error(e);
+      await this.unavailable(context);
+    }
+  }
+
+  @OnCommand({ name: 'help' })
+  async onHelp(message: Message): Promise<void> {
+    await message.reply(`
+    Bot commands:
+    /tr source_language target_language ...text - /tr ru en Привет, ребята!
+    `);
   }
 
   private async unavailable(message: Message): Promise<void> {
