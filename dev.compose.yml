@@ -14,6 +14,9 @@ services:
       - translate
     ports:
       - ${PORT}:${PORT}
+    volumes:
+      - ./:/app
+      - /app/node_modules
 
   translate:
     image: libretranslate/libretranslate
