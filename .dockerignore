@@ -4,4 +4,6 @@
 **/www
 npm-debug
 logs
+dist
+node_modules
 *.log
