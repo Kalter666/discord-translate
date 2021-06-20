@@ -26,10 +26,13 @@
     "@nestjs/platform-express": "^7.6.15",
     "discord-nestjs": "^1.1.12",
     "discord.js": "^12.5.3",
+    "nest-winston": "^1.5.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.6.6",
-    "translate": "^1.2.3"
+    "translate": "^1.2.3",
+    "winston": "^3.3.3",
+    "winston-daily-rotate-file": "^4.5.5"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.6.0",
