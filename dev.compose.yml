@@ -4,6 +4,9 @@ services:
     environment:
       - PORT=${PORT}
       - DISCORD_SECRET=${DISCORD_SECRET}
+      - NODE_ENV=development
+      - TRANSLATE_URL=translate
+      - TRANSLATE_PORT=5000
     restart: unless-stopped
     depends_on:
       - translate
