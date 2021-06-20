@@ -7,6 +7,8 @@ services:
     restart: unless-stopped
     depends_on:
       - translate
+    volumes:
+      - ./logs/server:/app/logs
 
   translate:
     image: libretranslate/libretranslate
