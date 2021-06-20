@@ -1,5 +1,5 @@
 import { Expose, Type } from 'class-transformer';
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 import { ArgNum, ArgRange } from 'discord-nestjs';
 
 export class TranslateDto {
@@ -12,7 +12,6 @@ export class TranslateDto {
   @ArgNum((last: number) => ({ position: last }))
   @Expose()
   @Type(() => String)
-  @IsOptional()
   @IsString()
   language: string;
 
