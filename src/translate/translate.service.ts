@@ -6,6 +6,12 @@ export class TranslateService {
   constructor(@InjetcTranslate() private translate) {}
 
   translateString(target: string, lang: string) {
-    return this.translate(target, lang);
+    try {
+      return this.translate.translate(target, lang);
+    } catch {
+      throw new Error(
+        'Translation server is down, try again in a couple of minutes',
+      );
+    }
   }
 }

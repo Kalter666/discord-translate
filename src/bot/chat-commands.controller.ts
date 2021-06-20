@@ -32,13 +32,14 @@ export class ChatCommandsController {
     @Content() content: TranslateDto,
     @Context() [context]: [Message],
   ): Promise<void> {
-    const translation = await this.translateService.translateString(
-      content.string,
-      content.language,
-    );
+    const translation = await this.translateService
+      .translateString(content.string, content.language)
+      .catch(() =>
+        context.reply('Service currently unavailable try again later'),
+      );
     await context.reply(
       `String: ${content.string},\n Target language: ${content.language}, \n Translation: \n
-      ${translation}`,
+        ${translation}`,
     );
   }
 }
