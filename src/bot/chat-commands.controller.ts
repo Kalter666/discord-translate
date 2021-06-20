@@ -59,10 +59,8 @@ export class ChatCommandsController {
     @Context() [context]: [Message],
   ): Promise<void> {
     try {
-      const translation = await this.translateService.guessAndtranslate(
-        content,
-      );
-      await context.reply(translation);
+      const res = await this.translateService.guessAndtranslate(content);
+      await context.reply(res);
     } catch (e) {
       Logger.error(e);
       await this.unavailable(context);
@@ -73,7 +71,10 @@ export class ChatCommandsController {
   async onHelp(message: Message): Promise<void> {
     await message.reply(`
     Bot commands:
+    /help - to see help
+    /langs - to see language list
     /tr source_language target_language ...text - /tr ru en Привет, ребята!
+    /t target_language ...text - /tr en Привет, ребята!
     `);
   }
 

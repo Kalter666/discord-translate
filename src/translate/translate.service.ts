@@ -19,7 +19,11 @@ export class TranslateService {
     if (!source) {
       return `can't guess source language`;
     }
-    return this.getTranslation({ q, target, source });
+    const translation = await this.getTranslation({ q, target, source });
+    return `
+    Guessed source language: ${source}
+    ${translation}
+    `;
   }
 
   async detectLanguage(q: string): Promise<string> {
