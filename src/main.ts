@@ -4,7 +4,7 @@ import * as helmet from 'helmet';
 import { WinstonModule } from 'nest-winston';
 
 import { AppModule } from './app.module';
-import { winstonConfig } from './config/winston.config';
+import { PORT, winstonConfig } from './config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -15,6 +15,6 @@ async function bootstrap() {
   app.use(urlencoded({ extended: true, limit: '50mb' }));
 
   app.use(helmet);
-  await app.listen(3000);
+  await app.listen(PORT);
 }
 bootstrap();

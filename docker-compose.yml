@@ -12,6 +12,8 @@ services:
       - translate
     volumes:
       - ./logs/server:/app/logs
+    ports:
+      - ${PORT}:${PORT}
 
   translate:
     image: libretranslate/libretranslate
