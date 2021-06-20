@@ -7,11 +7,15 @@ import {
   OnCommand,
 } from 'discord-nestjs';
 import { Message } from 'discord.js';
+import { TranslateService } from '../translate';
 import { TranslateDto } from './dto';
 
 @Controller()
 export class ChatCommandsController {
-  constructor(private readonly discordProvider: DiscordClientProvider) {}
+  constructor(
+    private readonly discordProvider: DiscordClientProvider,
+    private readonly translateService: TranslateService,
+  ) {}
 
   @Once({ event: 'ready' })
   onReady(): void {
@@ -28,9 +32,10 @@ export class ChatCommandsController {
     @Content() content: TranslateDto,
     @Context() [context]: [Message],
   ): Promise<void> {
+    const translation = await this.translateService.translate(content);
     await context.reply(
       `String: ${content.string},\n Target language: ${content.language}, \n Translation: \n
-        `,
+        ${translation}`,
     );
   }
 }
