@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 
-import { TranslateDto } from '../bot/dto';
+import { NoSourceTranslateDto, TranslateDto } from '../bot/dto';
 import { translateConfig } from '../config';
 
 @Injectable()
@@ -11,9 +11,15 @@ export class TranslateService {
   private translateURI = `${this.baseURL}/translate`;
   private supportedLanguagesURI = `${this.baseURL}/languages`;
 
-  async guessAndtranslate(translateDto: TranslateDto): Promise<string> {
-    const locale = await this.detectLanguage(translateDto.q);
-    return locale;
+  async guessAndtranslate({
+    q,
+    target,
+  }: NoSourceTranslateDto): Promise<string> {
+    const source = await this.detectLanguage(q);
+    if (!source) {
+      return `can't guess source language`;
+    }
+    return this.getTranslation({ q, target, source });
   }
 
   async detectLanguage(q: string): Promise<string> {
@@ -25,7 +31,13 @@ export class TranslateService {
     ).map(({ language }) => `${language}`)[0];
   }
 
-  async getTranslation({ q, source, target }: TranslateDto): Promise<string> {
+  async getTranslation({
+    q,
+    source,
+    target,
+  }:
+    | TranslateDto
+    | { q: string; source: string; target: string }): Promise<string> {
     return (
       (await axios.post(this.translateURI, { q, source, target })).data as {
         translatedText: string;

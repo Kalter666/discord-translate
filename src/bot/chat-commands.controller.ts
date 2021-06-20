@@ -8,7 +8,7 @@ import {
 } from 'discord-nestjs';
 import { Message } from 'discord.js';
 import { TranslateService } from '../translate';
-import { TranslateDto } from './dto';
+import { NoSourceTranslateDto, TranslateDto } from './dto';
 
 @Controller()
 export class ChatCommandsController {
@@ -46,6 +46,22 @@ export class ChatCommandsController {
   ): Promise<void> {
     try {
       const translation = await this.translateService.getTranslation(content);
+      await context.reply(translation);
+    } catch (e) {
+      Logger.error(e);
+      await this.unavailable(context);
+    }
+  }
+
+  @OnCommand({ name: 't' })
+  async onNoSouceTranslate(
+    @Content() content: NoSourceTranslateDto,
+    @Context() [context]: [Message],
+  ): Promise<void> {
+    try {
+      const translation = await this.translateService.guessAndtranslate(
+        content,
+      );
       await context.reply(translation);
     } catch (e) {
       Logger.error(e);
