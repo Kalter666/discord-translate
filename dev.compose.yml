@@ -2,9 +2,11 @@ services:
   server:
     build: 'dev.dockerfile'
     environment:
-      - PORT=3000
+      - PORT=${PORT}
       - DISCORD_SECRET=${DISCORD_SECRET}
     restart: unless-stopped
+    depends_on:
+      - translate
 
   translate:
     image: libretranslate/libretranslate
