@@ -18,3 +18,5 @@ services:
   translate:
     image: libretranslate/libretranslate
     restart: unless-stopped
+    volumes:
+      - /root/.local
