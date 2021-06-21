@@ -1,73 +1,50 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+# Yet another translator chat bot for [discord](https://discord.com/).
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## About
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+The main purpose of this is to make a self-hosted option for your discord server to make possible to you use a free translation software.
+So feel free to use, fork. Pull-requests with bugfixes or features are welcome.
 
-## Description
+Project is based on [Nest.js](https://nestjs.com/), [Docker](https://www.docker.com/), [Libretranslate](https://libretranslate.com/). Check them out before asking any questions.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## System requirements
 
-## Installation
+- docker 20.10.7 or newer
+- docker compose 1.28.2 or newer
+<p>Make sure to keep them up to date</p>
 
-```bash
-$ npm install
-```
+## Installation proccess
 
-## Running the app
+1. install docker and docker-compose or docker desktop on windows or mac if you haven't done it yet.
+2. give permissions to shell scripts with `chmod +x *.sh` to be able to use handy scripts included.
+3. create .env file and specify your discord secret key for the bot like so `DISCORD_SECRET=paste-your-bot-key-here`.
+4. add application port to the .env file like so `PORT=3000`, port ain't in use by now but may be in future.
+5. add your bot to your server by following [this guide](https://discordjs.guide/preparations/adding-your-bot-to-servers.html#bot-invite-links).
+6. run start script with the following command: `./start.sh`.
 
-```bash
-# development
-$ npm run start
+<p>Now you're ready to go</p>
 
-# watch mode
-$ npm run start:dev
+## Knows issues
 
-# production mode
-$ npm run start:prod
-```
+- on every start libretranslate loads language packages using volumes doesn't help
+- because of the previous issue translation is possible after downloading all language packs until then bot will show errors, so hot reload isn't possible at the moment.
 
-## Test
+## Environment variables
 
-```bash
-# unit tests
-$ npm run test
+- DISCORD_SECRET - a private key for bot you can pick it up from [this link](https://discord.com/developers/applications/), select your application or create a new one, go to the bot section and you'll see token section below bot's username which you can also define here.
+- PORT - a port for the nest server, required but won't bring any functionality yet.
 
-# e2e tests
-$ npm run test:e2e
+## Included scripts
 
-# test coverage
-$ npm run test:cov
-```
+In order to not type everytime `docker-compose up/down` etc.
+when you want to start/stop your app, there are some scripts included.
 
-## Support
+- start.sh - start both server and libre translator in production mode
+- stop.sh - stops a production container and a libre translator container
+- restart.sh - restarts both server and libre translator containers, after an update for example
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+<p>scripts with the `-dev` postfix do the same but for development purposes with hot reload of the nest server enabled</p>
 
-## Stay in touch
+## Licence
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+[MIT]()
