@@ -47,4 +47,4 @@ when you want to start/stop your app, there are some scripts included.
 
 ## Licence
 
-[MIT]()
+[MIT](https://github.com/Kalter666/discord-translate/blob/master/LICENSE)
