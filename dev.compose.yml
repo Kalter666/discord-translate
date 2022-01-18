@@ -18,6 +18,6 @@ services:
       - /app/node_modules
 
   translate:
-    image: libretranslate/libretranslate
+    image: libretranslate/libretranslate:main
     ports:
       - 5000:5000

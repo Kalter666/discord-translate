@@ -16,5 +16,5 @@ services:
       - ${PORT}:${PORT}
 
   translate:
-    image: libretranslate/libretranslate
+    image: libretranslate/libretranslate:main
     restart: unless-stopped
