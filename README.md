@@ -15,7 +15,7 @@ Project is based on [Nest.js](https://nestjs.com/), [Docker](https://www.docker.
 
 ## Installation proccess
 
-1. install docker and docker-compose or docker desktop on windows or mac if you haven't done it yet.
+1. install docker and docker compose or docker desktop on windows or mac if you haven't done it yet.
 2. give permissions to shell scripts with `chmod +x *.sh` to be able to use handy scripts included.
 3. create .env file and specify your discord secret key for the bot like so `DISCORD_SECRET=paste-your-bot-key-here`.
 4. add application port to the .env file like so `PORT=3000`, port ain't in use by now but may be in future.
@@ -36,7 +36,7 @@ Project is based on [Nest.js](https://nestjs.com/), [Docker](https://www.docker.
 
 ## Included scripts
 
-In order to not type everytime `docker-compose up/down` etc.
+In order to not type everytime `docker compose up/down` etc.
 when you want to start/stop your app, there are some scripts included.
 
 - start.sh - start both server and libre translator in production mode
